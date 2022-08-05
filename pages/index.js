@@ -27,22 +27,6 @@ export default function Home() {
       }
    ])
 
-   const renderItems = () => {
-      return menuItems
-         .filter(item => item.name.toLowerCase().includes(searchQuery))
-         .map((item, key) => {
-            return (
-               <MenuItem
-                  key={key}
-                  name={item.name}
-                  image={item.image}
-                  price={item.price}
-                  description={item.description}
-               />
-            )
-         })
-   }
-
    return (
       <Box>
          <Box>
@@ -56,25 +40,19 @@ export default function Home() {
             <Search filter={setSearchQuery} />
          </Box>
          <Box>
-            {renderItems()}
-            {/* <MenuItem
-               name="Hamburger simples"
-               image="https://img.freepik.com/fotos-gratis/hamburguer-de-carne-com-salada-de-queijo-e-tomate-em-piso-escuro_140725-89524.jpg?w=2000"
-               price="R$16,00"
-               description="Burger Angus (160g), queijo prato, molho Fanis, maiosese e pão brioche"
-            />
-            <MenuItem
-               name="Pizza"
-               image="https://diaadianoticia.com.br/wp-content/uploads/2022/07/pizza-site-or.jpg"
-               price="R$20,00"
-               description="Peperonni, pimentão, queijo e molho de tomate"
-            />
-            <MenuItem
-               name="Pastel"
-               image="https://www.comidaereceitas.com.br/wp-content/uploads/2007/11/Pastel_feiraaoo.jpg"
-               price="R$5,00"
-               description="Carne, queijo, frango c/ catupiry"
-            /> */}
+            {menuItems
+               .filter(item => item.name.toLowerCase().startsWith(searchQuery))
+               .map((item, key) => {
+                  return (
+                     <MenuItem
+                        key={key}
+                        name={item.name}
+                        image={item.image}
+                        price={item.price}
+                        description={item.description}
+                     />
+                  )
+               })}
          </Box>
       </Box>
    )

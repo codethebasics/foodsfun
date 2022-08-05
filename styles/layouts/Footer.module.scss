@@ -1,6 +1,7 @@
 @import '../vars.scss';
 
 .footer {
-   background: $orange-1;
+   border-top: 2px solid $orange-1;
+   background: $dark-0;
    color: $light-1;
 }
