@@ -1,5 +1,4 @@
 import styles from '../../styles/layouts/Header.module.scss'
-
 import { Box, Image } from '@chakra-ui/react'
 import { SettingsIcon } from '@chakra-ui/icons'
 
@@ -14,7 +13,6 @@ export default function Header() {
          className={styles.header}
          display="flex"
          justifyContent="space-between"
-         borderBottom="2px solid #fe8100"
       >
          <Box>
             <Image
@@ -26,9 +24,8 @@ export default function Header() {
          </Box>
          <Box>
             <SettingsIcon
-               color="#ddd"
+               color="#fff"
                fontSize="1.3rem"
-               cursor="pointer"
                onClick={openOverlayMenu}
             />
          </Box>
