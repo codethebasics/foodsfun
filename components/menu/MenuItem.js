@@ -8,7 +8,7 @@ export default function MenuItem({ name, price, description, image }) {
             <Text fontSize="1.4rem" fontWeight="bold" margin="5px 0">
                {name}
             </Text>
-            <Text fontSize="1.3rem">{price}</Text>
+            <Text fontSize="1.3rem">R$ {price.toFixed(2)}</Text>
          </Box>
          <Text color="#ddd">{description}</Text>
       </Box>
