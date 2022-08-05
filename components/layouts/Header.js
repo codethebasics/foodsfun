@@ -1,7 +1,7 @@
 import styles from '../../styles/layouts/Header.module.scss'
 
 import { Box, Image } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { SettingsIcon } from '@chakra-ui/icons'
 
 export default function Header() {
    const openOverlayMenu = () => {
@@ -25,7 +25,12 @@ export default function Header() {
             />
          </Box>
          <Box>
-            <HamburgerIcon fontSize="1.3rem" onClick={openOverlayMenu} />
+            <SettingsIcon
+               color="#ddd"
+               fontSize="1.3rem"
+               cursor="pointer"
+               onClick={openOverlayMenu}
+            />
          </Box>
       </Box>
    )

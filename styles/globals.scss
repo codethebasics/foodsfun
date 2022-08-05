@@ -41,3 +41,18 @@ body {
    }
 }
 
+/* width */
+::-webkit-scrollbar {
+   width: 5px;
+ }
+ 
+ /* Track */
+ ::-webkit-scrollbar-track {
+   background: #222;
+ }
+ 
+ /* Handle */
+ ::-webkit-scrollbar-thumb {
+   background: #000;
+   border-radius: 5px;
+ }
