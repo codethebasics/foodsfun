@@ -45,10 +45,11 @@ export default function MenuItem({ name, price, description, image }) {
                <SliderThumb
                   fontSize="sm"
                   boxSize="26px"
-                  children={quantity}
                   bg="#fe8100"
                   color="#fe8100"
-               />
+               >
+                  {quantity}
+               </SliderThumb>
             </Slider>
             <NumberInput
                size="sm"
