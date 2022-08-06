@@ -1,4 +1,3 @@
-import styles from '../../styles/components/util/Search.module.scss'
 import { Box, InputGroup, InputRightElement, Input } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 
@@ -12,7 +11,9 @@ export default function Search({ filter }) {
                border="0"
                onChange={e => filter(e.target.value)}
             />
-            <InputRightElement pointerEvents="none" children={<SearchIcon />} />
+            <InputRightElement pointerEvents="none">
+               <SearchIcon />
+            </InputRightElement>
          </InputGroup>
       </Box>
    )
