@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
                <Component {...pageProps} />
             </Box>
             <Box className="footer">
-               <Footer />
+               <Footer subtotal={77.77} />
             </Box>
          </Box>
       </ChakraProvider>

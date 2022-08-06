@@ -1,7 +1,13 @@
 @import '../vars.scss';
 
 .footer {
-   border-top: 2px solid $orange-1;
    background: $dark-0;
    color: $light-1;
+   
+   .subtotal {
+      padding: 5px 15px;
+      background: rgb(254, 129, 0, .8);      
+      font-weight: bold;
+      text-transform: uppercase;
+   }
 }

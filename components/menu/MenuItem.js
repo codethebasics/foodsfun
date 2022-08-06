@@ -37,17 +37,27 @@ export default function MenuItem({ name, price, description, image }) {
                value={quantity}
                ml="1rem"
                onChange={handleChange}
+               max={20}
             >
-               <SliderTrack>
-                  <SliderFilledTrack />
+               <SliderTrack bg="#444">
+                  <SliderFilledTrack bg="#fe8100" />
                </SliderTrack>
-               <SliderThumb fontSize="sm" boxSize="32px" children={quantity} />
+               <SliderThumb
+                  fontSize="sm"
+                  boxSize="26px"
+                  children={quantity}
+                  bg="#fe8100"
+                  color="#fe8100"
+               />
             </Slider>
             <NumberInput
+               size="sm"
                maxW="100px"
+               max={20}
                ml="2rem"
-               value={quantity}
+               value={quantity <= 20 ? quantity : 20}
                onChange={handleChange}
+               focusBorderColor="#fe8100"
             >
                <NumberInputField borderRadius="4px" />
                <NumberInputStepper>
