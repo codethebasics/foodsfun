@@ -22,7 +22,7 @@ export default function MenuItem({ name, price, description, image }) {
 
    return (
       <Box p={5}>
-         <Image src={image} borderRadius="4px" />
+         <Image src={image} borderRadius="4px" alt="Menu item" />
          <Box display="flex" justifyContent="space-between" alignItems="center">
             <Text fontSize="1.4rem" fontWeight="bold" margin="5px 0">
                {name}
