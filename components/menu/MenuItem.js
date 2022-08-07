@@ -1,6 +1,7 @@
 import {
    Box,
    Flex,
+   Button,
    Text,
    Image,
    Slider,
@@ -10,6 +11,8 @@ import {
 } from '@chakra-ui/react'
 
 import { useState } from 'react'
+import { BsPlusLg } from 'react-icons/bs'
+import { FaMinus } from 'react-icons/fa'
 
 export default function MenuItem({
    id,
@@ -43,7 +46,15 @@ export default function MenuItem({
             <Text fontSize="1.3rem">R$ {price.toFixed(2)}</Text>
          </Box>
          <Text color="#ddd">{description}</Text>
-         <Flex mt={5}>
+         <Flex mt={5} alignItems="center">
+            <Button
+               colorScheme="blackAlpha"
+               size="sm"
+               mr={3}
+               onClick={() => setQuantity(quantity - 1)}
+            >
+               <FaMinus />
+            </Button>
             <Slider
                flex="1"
                focusThumbOnChange={false}
@@ -58,30 +69,21 @@ export default function MenuItem({
                </SliderTrack>
                <SliderThumb
                   fontSize="sm"
-                  boxSize="26px"
+                  boxSize="32px"
                   bg="#fe8100"
-                  color="#fe8100"
+                  color="#fff"
                >
                   {quantity}
                </SliderThumb>
             </Slider>
-            <Text fontSize="2rem">{quantity}</Text>
-            {/* <NumberInput
+            <Button
+               colorScheme="blackAlpha"
                size="sm"
-               maxW="100px"
-               min={0}
-               max={20}
-               ml="2rem"
-               value={quantity <= 20 ? quantity : 20}
-               onChange={handleChange}
-               focusBorderColor="#fe8100"
+               ml={3}
+               onClick={() => setQuantity(quantity + 1)}
             >
-               <NumberInputField borderRadius="4px" />
-               <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-               </NumberInputStepper>
-            </NumberInput> */}
+               <BsPlusLg />
+            </Button>
          </Flex>
       </Box>
    )
