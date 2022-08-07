@@ -19,6 +19,8 @@ body {
 
 .mainWrapper {
    height: 100vh;   
+   max-width: 375px;
+   margin: auto;
    display: grid;
    grid-template-columns: 1fr;
    grid-template-rows: auto 1fr auto;
