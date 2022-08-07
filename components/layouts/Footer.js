@@ -13,7 +13,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { ImCheckmark } from 'react-icons/im'
 import { CgPlayListCheck } from 'react-icons/cg'
 
-export default function Footer({ subtotal }) {
+export default function Footer() {
    const appContext = useAppContext()
 
    const [confirmDialog, setConfirmDialog] = useState(false)

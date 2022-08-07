@@ -14,6 +14,8 @@ export default function Home() {
    const [menuItemsAdded, setMenuItemsAdded] = useState([])
    const [orderTotal, setOrderTotal] = useState(0)
 
+   console.log(orderTotal)
+
    useEffect(() => {
       const fetchItems = async () => {
          const items = await listItems()
