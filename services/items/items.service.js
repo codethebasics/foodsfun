@@ -1,5 +1,5 @@
 const listItems = async () => {
-   return await fetch('http://localhost:3000/api/items', {
+   return await fetch(`${process.env.NEXT_PUBLIC_API}/api/items`, {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
