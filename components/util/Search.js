@@ -9,7 +9,7 @@ export default function Search({ filter }) {
                placeholder="Pesquisar"
                focusBorderColor="#fe8100"
                border="0"
-               onChange={e => filter(e.target.value)}
+               onChange={e => filter(e.target.value?.toLowerCase())}
             />
             <InputRightElement pointerEvents="none">
                <SearchIcon />

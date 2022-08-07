@@ -16,9 +16,27 @@ import {
 
 import { useState } from 'react'
 
-export default function MenuItem({ name, price, description, image }) {
+export default function MenuItem({
+   id,
+   name,
+   price,
+   description,
+   image,
+   onAdd
+}) {
    const [quantity, setQuantity] = useState(0)
-   const handleChange = value => setQuantity(value)
+
+   const handleChange = value => {
+      setQuantity(value)
+      onAdd({
+         id: id,
+         name: name,
+         price: price,
+         description: description,
+         image: image,
+         quantity: value
+      })
+   }
 
    return (
       <Box p={5}>
@@ -54,6 +72,7 @@ export default function MenuItem({ name, price, description, image }) {
             <NumberInput
                size="sm"
                maxW="100px"
+               min={0}
                max={20}
                ml="2rem"
                value={quantity <= 20 ? quantity : 20}

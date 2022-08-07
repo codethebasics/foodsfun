@@ -1,35 +1,51 @@
 import { Box, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { listItems } from '../services/items/items.service'
+import { useAppContext } from '../src/context/state'
+
 import MenuItem from '../components/menu/MenuItem'
 import Search from '../components/util/Search'
 
 export default function Home() {
+   const appContext = useAppContext()
+
    const [searchQuery, setSearchQuery] = useState('')
    const [menuItems, setMenuItems] = useState([])
+   const [menuItemsAdded, setMenuItemsAdded] = useState([])
+   const [orderTotal, setOrderTotal] = useState(0)
 
    useEffect(() => {
-      setMenuItems([
-         {
-            name: 'Hamburger simples',
-            image: 'https://img.freepik.com/fotos-gratis/hamburguer-de-carne-com-salada-de-queijo-e-tomate-em-piso-escuro_140725-89524.jpg?w=2000',
-            price: 16.0,
-            description:
-               'Burger Angus (160g), queijo prato, molho Fanis, maiosese e pão brioche'
-         },
-         {
-            name: 'Pizza',
-            image: 'https://diaadianoticia.com.br/wp-content/uploads/2022/07/pizza-site-or.jpg',
-            price: 20.0,
-            description: 'Peperonni, pimentão, queijo e molho de tomate'
-         },
-         {
-            name: 'Pastel',
-            image: 'https://www.comidaereceitas.com.br/wp-content/uploads/2007/11/Pastel_feiraaoo.jpg',
-            price: 5.0,
-            description: 'Carne, queijo, frango c/ catupiry'
-         }
-      ])
+      const fetchItems = async () => {
+         const items = await listItems()
+         setMenuItems(items)
+      }
+      fetchItems()
    }, [])
+
+   const addItemToOrder = item => {
+      // TODO: consertar cálculo de total
+      const currentOrder = [...menuItemsAdded]
+      const itemIndex = currentOrder.findIndex(i => i.id === item.id)
+      if (itemIndex == -1) {
+         setMenuItemsAdded(oldArray => [...oldArray, item])
+         console.log('total primeiro')
+         const total = item.price * item.quantity
+         setOrderTotal(total)
+         appContext.setTotal(total)
+      } else {
+         if (item.quantity > 0) {
+            currentOrder[itemIndex].quantity = item.quantity
+            setMenuItemsAdded(currentOrder)
+            console.log('total restante')
+            console.log(menuItemsAdded)
+            const total = currentOrder
+               .map(item => item.price * item.quantity)
+               .reduce((total, current) => total + current)
+            setOrderTotal(total)
+            appContext.setTotal(total)
+         }
+      }
+   }
 
    return (
       <Box>
@@ -45,19 +61,24 @@ export default function Home() {
             <Search filter={setSearchQuery} />
          </Box>
          <Box>
-            {menuItems
-               .filter(item => item.name.toLowerCase().startsWith(searchQuery))
-               .map((item, key) => {
-                  return (
-                     <MenuItem
-                        key={key}
-                        name={item.name}
-                        image={item.image}
-                        price={item.price}
-                        description={item.description}
-                     />
+            {menuItems.length &&
+               menuItems
+                  .filter(item =>
+                     item.name.toLowerCase().startsWith(searchQuery)
                   )
-               })}
+                  .map((item, key) => {
+                     return (
+                        <MenuItem
+                           key={key}
+                           id={item.id}
+                           name={item.name}
+                           image={item.image}
+                           price={item.price}
+                           description={item.description}
+                           onAdd={addItemToOrder}
+                        />
+                     )
+                  })}
          </Box>
       </Box>
    )
