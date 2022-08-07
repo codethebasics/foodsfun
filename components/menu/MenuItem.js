@@ -3,11 +3,6 @@ import {
    Flex,
    Text,
    Image,
-   NumberInput,
-   NumberInputField,
-   NumberInputStepper,
-   NumberIncrementStepper,
-   NumberDecrementStepper,
    Slider,
    SliderTrack,
    SliderFilledTrack,
@@ -56,6 +51,7 @@ export default function MenuItem({
                ml="1rem"
                onChange={handleChange}
                max={20}
+               mr={5}
             >
                <SliderTrack bg="#444">
                   <SliderFilledTrack bg="#fe8100" />
@@ -69,7 +65,8 @@ export default function MenuItem({
                   {quantity}
                </SliderThumb>
             </Slider>
-            <NumberInput
+            <Text fontSize="2rem">{quantity}</Text>
+            {/* <NumberInput
                size="sm"
                maxW="100px"
                min={0}
@@ -84,7 +81,7 @@ export default function MenuItem({
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
                </NumberInputStepper>
-            </NumberInput>
+            </NumberInput> */}
          </Flex>
       </Box>
    )

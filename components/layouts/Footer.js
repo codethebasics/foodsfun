@@ -19,7 +19,6 @@ export default function Footer() {
    const [confirmDialog, setConfirmDialog] = useState(false)
 
    const toggleConfirmDialog = () => {
-      console.log('toggle', confirmDialog)
       setConfirmDialog(!confirmDialog)
    }
 
