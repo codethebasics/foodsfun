@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import styles from '../../styles/layouts/Footer.module.scss'
 
+import { useState } from 'react'
+import { Alert, AlertTitle, AlertDescription, Text } from '@chakra-ui/react'
 import { useAppContext } from '/src/context/state'
 import { Box, Flex, Button } from '@chakra-ui/react'
 import { TbBellRinging2 } from 'react-icons/tb'
@@ -9,25 +11,36 @@ import { GrUnorderedList } from 'react-icons/gr'
 import { RiFilePaperLine } from 'react-icons/ri'
 import { AiOutlineUser } from 'react-icons/ai'
 import { ImCheckmark } from 'react-icons/im'
+import { CgPlayListCheck } from 'react-icons/cg'
 
-export default function Footer({ subtotal }) {
+export default function Footer() {
    const appContext = useAppContext()
+
+   const [confirmDialog, setConfirmDialog] = useState(false)
+
+   const toggleConfirmDialog = () => {
+      console.log('toggle', confirmDialog)
+      setConfirmDialog(!confirmDialog)
+   }
 
    return (
       <Box className={styles.footer} display="flex" flexDirection="column">
-         <Flex className={styles.subtotal} justifyContent="space-between">
-            <Box>
-               <Button
-                  size="sm"
-                  colorScheme="green"
-                  borderRadius="4px"
-                  rightIcon={<ImCheckmark />}
-               >
-                  Confirmar
-               </Button>
-            </Box>
-            <Box>R$ {appContext.total.toFixed(2)}</Box>
-         </Flex>
+         {appContext.total > 0 && (
+            <Flex className={styles.subtotal} justifyContent="space-between">
+               <Box>
+                  <Button
+                     size="sm"
+                     colorScheme="green"
+                     borderRadius="4px"
+                     rightIcon={<ImCheckmark />}
+                     onClick={toggleConfirmDialog}
+                  >
+                     Confirmar
+                  </Button>
+               </Box>
+               <Box>R$ {appContext.total.toFixed(2)}</Box>
+            </Flex>
+         )}
          <Flex
             padding="10px"
             justifyContent="space-between"
@@ -95,6 +108,44 @@ export default function Footer({ subtotal }) {
                </Link>
             </Box>
          </Flex>
+         <Alert
+            className={styles.confirmDialog}
+            status="success"
+            variant="solid"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="center"
+            display={confirmDialog ? 'flex' : 'none'}
+         >
+            <CgPlayListCheck fontSize="3rem" />
+            <AlertTitle mt={2} mb={2} fontSize="lg">
+               Confirmar pedido
+               <Text pt={5} pb={5} fontSize="3xl" fontWeight="bold">
+                  R$ {appContext.total.toFixed(2)}
+               </Text>
+            </AlertTitle>
+            <AlertDescription maxWidth="sm">
+               <Box>Deseja confirmar o pedido?</Box>
+               <Flex>
+                  <Button
+                     colorScheme="red"
+                     variant="outline"
+                     margin="25px 15px"
+                     onClick={toggleConfirmDialog}
+                  >
+                     Cancelar
+                  </Button>
+                  <Button
+                     colorScheme="green"
+                     variant="outline"
+                     margin="25px 15px"
+                  >
+                     Confirmar
+                  </Button>
+               </Flex>
+            </AlertDescription>
+         </Alert>
       </Box>
    )
 }

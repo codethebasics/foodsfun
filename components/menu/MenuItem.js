@@ -72,6 +72,7 @@ export default function MenuItem({
             <NumberInput
                size="sm"
                maxW="100px"
+               min={0}
                max={20}
                ml="2rem"
                value={quantity <= 20 ? quantity : 20}
