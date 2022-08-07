@@ -36,6 +36,18 @@ export default function MenuItem({
       })
    }
 
+   const add = () => {
+      if (quantity < 20) {
+         handleChange(quantity + 1)
+      }
+   }
+
+   const sub = () => {
+      if (quantity > 0) {
+         handleChange(quantity - 1)
+      }
+   }
+
    return (
       <Box p={5}>
          <Image src={image} borderRadius="4px" alt="Menu item" />
@@ -47,12 +59,7 @@ export default function MenuItem({
          </Box>
          <Text color="#ddd">{description}</Text>
          <Flex mt={5} alignItems="center">
-            <Button
-               colorScheme="blackAlpha"
-               size="sm"
-               mr={3}
-               onClick={() => setQuantity(quantity - 1)}
-            >
+            <Button colorScheme="blackAlpha" size="sm" mr={3} onClick={sub}>
                <FaMinus />
             </Button>
             <Slider
@@ -76,12 +83,7 @@ export default function MenuItem({
                   {quantity}
                </SliderThumb>
             </Slider>
-            <Button
-               colorScheme="blackAlpha"
-               size="sm"
-               ml={3}
-               onClick={() => setQuantity(quantity + 1)}
-            >
+            <Button colorScheme="blackAlpha" size="sm" ml={3} onClick={add}>
                <BsPlusLg />
             </Button>
          </Flex>
