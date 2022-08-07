@@ -14,4 +14,12 @@
       display: flex;
       align-items: center;
    }
+
+   .confirmDialog {
+      background: rgba(22, 22, 22, .98);
+      position: absolute;
+      top: 0;
+      height: 100%;
+      z-index: 9;
+   }
 }
