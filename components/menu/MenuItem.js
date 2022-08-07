@@ -1,6 +1,7 @@
 import {
    Box,
    Flex,
+   Button,
    Text,
    Image,
    Slider,
@@ -10,6 +11,8 @@ import {
 } from '@chakra-ui/react'
 
 import { useState } from 'react'
+import { BsPlusLg } from 'react-icons/bs'
+import { FaMinus } from 'react-icons/fa'
 
 export default function MenuItem({
    id,
@@ -17,20 +20,41 @@ export default function MenuItem({
    price,
    description,
    image,
-   onAdd
+   onAdd,
+   onRemove
 }) {
    const [quantity, setQuantity] = useState(0)
 
    const handleChange = value => {
       setQuantity(value)
-      onAdd({
-         id: id,
-         name: name,
-         price: price,
-         description: description,
-         image: image,
-         quantity: value
-      })
+   }
+
+   const add = () => {
+      if (quantity < 20) {
+         handleChange(quantity + 1)
+         onAdd({
+            id: id,
+            name: name,
+            price: price,
+            description: description,
+            image: image,
+            quantity: quantity + 1
+         })
+      }
+   }
+
+   const sub = () => {
+      if (quantity > 0) {
+         handleChange(quantity - 1)
+         onRemove({
+            id: id,
+            name: name,
+            price: price,
+            description: description,
+            image: image,
+            quantity: quantity - 1
+         })
+      }
    }
 
    return (
@@ -43,7 +67,10 @@ export default function MenuItem({
             <Text fontSize="1.3rem">R$ {price.toFixed(2)}</Text>
          </Box>
          <Text color="#ddd">{description}</Text>
-         <Flex mt={5}>
+         <Flex mt={5} alignItems="center">
+            <Button colorScheme="blackAlpha" size="sm" mr={3} onClick={sub}>
+               <FaMinus />
+            </Button>
             <Slider
                flex="1"
                focusThumbOnChange={false}
@@ -58,30 +85,16 @@ export default function MenuItem({
                </SliderTrack>
                <SliderThumb
                   fontSize="sm"
-                  boxSize="26px"
+                  boxSize="32px"
                   bg="#fe8100"
-                  color="#fe8100"
+                  color="#fff"
                >
                   {quantity}
                </SliderThumb>
             </Slider>
-            <Text fontSize="2rem">{quantity}</Text>
-            {/* <NumberInput
-               size="sm"
-               maxW="100px"
-               min={0}
-               max={20}
-               ml="2rem"
-               value={quantity <= 20 ? quantity : 20}
-               onChange={handleChange}
-               focusBorderColor="#fe8100"
-            >
-               <NumberInputField borderRadius="4px" />
-               <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-               </NumberInputStepper>
-            </NumberInput> */}
+            <Button colorScheme="blackAlpha" size="sm" ml={3} onClick={add}>
+               <BsPlusLg />
+            </Button>
          </Flex>
       </Box>
    )

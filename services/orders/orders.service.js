@@ -1,9 +1,15 @@
-const AppContext = require('../../src/context/state')
-
-const appContext = AppContext.useAppContext()
-
-const setOrderTotal = total => {
-   appContext.setTotal(total)
+const list = async () => {
+   return await fetch(`${process.env.NEXT_PUBLIC_ROOT}/api/orders`, {
+      method: 'GET',
+      headers: {
+         'Content-Type': 'application/json',
+         Accept: 'application/json'
+      }
+   }).then(response => response.json())
 }
 
-export { setOrderTotal }
+const save = async order => {
+   console.log('saving order', order)
+}
+
+export { list }

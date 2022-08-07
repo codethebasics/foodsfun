@@ -3,7 +3,7 @@ import styles from '../../styles/layouts/Footer.module.scss'
 
 import { useState } from 'react'
 import { Alert, AlertTitle, AlertDescription, Text } from '@chakra-ui/react'
-import { useAppContext } from '/src/context/state'
+import { useOrderContext } from '/src/context/order.context'
 import { Box, Flex, Button } from '@chakra-ui/react'
 import { TbBellRinging2 } from 'react-icons/tb'
 import { BiFoodMenu } from 'react-icons/bi'
@@ -14,7 +14,7 @@ import { ImCheckmark } from 'react-icons/im'
 import { CgPlayListCheck } from 'react-icons/cg'
 
 export default function Footer() {
-   const appContext = useAppContext()
+   const orderContext = useOrderContext()
 
    const [confirmDialog, setConfirmDialog] = useState(false)
 
@@ -24,7 +24,7 @@ export default function Footer() {
 
    return (
       <Box className={styles.footer} display="flex" flexDirection="column">
-         {appContext.total > 0 && (
+         {orderContext.total > 0 && (
             <Flex className={styles.subtotal} justifyContent="space-between">
                <Box>
                   <Button
@@ -37,7 +37,7 @@ export default function Footer() {
                      Confirmar
                   </Button>
                </Box>
-               <Box>R$ {appContext.total.toFixed(2)}</Box>
+               <Box>R$ {orderContext.total.toFixed(2)}</Box>
             </Flex>
          )}
          <Flex
@@ -121,7 +121,7 @@ export default function Footer() {
             <AlertTitle mt={2} mb={2} fontSize="lg">
                Confirmar pedido
                <Text pt={5} pb={5} fontSize="3xl" fontWeight="bold">
-                  R$ {appContext.total.toFixed(2)}
+                  R$ {orderContext.total.toFixed(2)}
                </Text>
             </AlertTitle>
             <AlertDescription maxWidth="sm">
