@@ -23,7 +23,7 @@ export default function Home() {
    }, [])
 
    const addItemToOrder = item => {
-      // TODO: concertar cálculo de total
+      // TODO: consertar cálculo de total
       const currentOrder = [...menuItemsAdded]
       const itemIndex = currentOrder.findIndex(i => i.id === item.id)
       if (itemIndex == -1) {
@@ -33,15 +33,17 @@ export default function Home() {
          setOrderTotal(total)
          appContext.setTotal(total)
       } else {
-         currentOrder[itemIndex].quantity = item.quantity
-         setMenuItemsAdded(currentOrder)
-         console.log('total restante')
-         console.log(menuItemsAdded)
-         const total = currentOrder
-            .map(item => item.price * item.quantity)
-            .reduce((total, current) => total + current)
-         setOrderTotal(total)
-         appContext.setTotal(total)
+         if (item.quantity > 0) {
+            currentOrder[itemIndex].quantity = item.quantity
+            setMenuItemsAdded(currentOrder)
+            console.log('total restante')
+            console.log(menuItemsAdded)
+            const total = currentOrder
+               .map(item => item.price * item.quantity)
+               .reduce((total, current) => total + current)
+            setOrderTotal(total)
+            appContext.setTotal(total)
+         }
       }
    }
 
