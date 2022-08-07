@@ -34,6 +34,12 @@ export default function Home() {
       console.log('------------------')
    }
 
+   const setItemQuantity = (item, quantity) => {
+      console.log('-----------------------------')
+      orderContext.setItemQuantity(item, quantity)
+      console.log('-----------------------------')
+   }
+
    return (
       <Box>
          <Box>

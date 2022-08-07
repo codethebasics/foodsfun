@@ -1,8 +1,11 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import * as OrderService from '../../services/orders/orders.service'
+import { useOrderContext } from '../../src/context/order.context'
 
 export default function Pedidos() {
+   const orderContext = useOrderContext()
+
    useEffect(() => {
       const fetchOrders = async () => {
          const orders = await OrderService.list()
@@ -20,7 +23,7 @@ export default function Pedidos() {
          </Flex>
          <Box>
             <Box>
-               <Text></Text>
+               <Text>{JSON.stringify(orderContext.order)}</Text>
             </Box>
          </Box>
       </Box>
