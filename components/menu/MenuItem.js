@@ -10,9 +10,10 @@ import {
    SliderThumb
 } from '@chakra-ui/react'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BsPlusLg } from 'react-icons/bs'
 import { FaMinus } from 'react-icons/fa'
+import { useOrderContext } from '../../src/context/order.context'
 
 export default function MenuItem({
    id,
@@ -25,6 +26,19 @@ export default function MenuItem({
    onSet
 }) {
    const [quantity, setQuantity] = useState(0)
+
+   const orderContext = useOrderContext()
+
+   useEffect(() => {
+      const currentOrder = JSON.parse(localStorage.getItem('order'))
+      if (currentOrder && currentOrder.items.length) {
+         const currentItem = currentOrder.items.find(item => item.id === id)
+         if (currentItem) {
+            setQuantity(currentItem.quantity)
+            orderContext.setOrder(currentOrder)
+         }
+      }
+   }, [id, name, orderContext])
 
    const handleChange = value => {
       setQuantity(value)

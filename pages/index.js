@@ -11,8 +11,6 @@ export default function Home() {
 
    const [searchQuery, setSearchQuery] = useState('')
    const [menuItems, setMenuItems] = useState([])
-   // const [menuItemsAdded, setMenuItemsAdded] = useState([])
-   // const [, setOrderTotal] = useState(0)
 
    useEffect(() => {
       const fetchItems = async () => {
