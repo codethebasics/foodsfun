@@ -13,6 +13,40 @@ export function OrderWrapper({ children }) {
 
    /**
     *
+    * Seta a quantidade do item
+    *
+    */
+   const setItem = item => {
+      // Faz cópia do array de pedidos
+      const currentOrder = { ...order }
+
+      // Se não possuir o atributo items, adiciona um
+      if (!currentOrder.hasOwnProperty('items')) {
+         currentOrder.items = []
+      }
+
+      // Procura o o índice o item informado
+      const index = currentOrder.items.findIndex(i => i.id === item.id)
+
+      if (index > -1) {
+         // Incrementa item caso ele exista
+         currentOrder.items[index].quantity = item.quantity
+      } else {
+         // Caso não exista, adiciona o primeiro
+         item.quantity = 1
+         currentOrder.items.push(item)
+      }
+
+      console.log(currentOrder)
+      // Seta o pedido no contexto
+      setOrder(currentOrder)
+
+      // Altera o total do pedido
+      computeTotal(currentOrder)
+   }
+
+   /**
+    *
     * Incrementa a quantidade do item
     *
     */
@@ -88,32 +122,6 @@ export function OrderWrapper({ children }) {
       setTotal(total)
    }
 
-   /**
-    *
-    * Seta a quantidade de determinado item
-    * TODO: testar
-    */
-   const setItemQuantity = (item, quantity) => {
-      // Faz cópia do array de pedidos
-      const currentOrder = { ...order }
-
-      // Se não possuir o atributo items, adiciona um
-      if (!currentOrder.hasOwnProperty('items')) {
-         currentOrder.items = []
-      }
-
-      // Procura o o índice o item informado
-      const index = currentOrder.items.findIndex(i => i.id === item.id)
-
-      if (index > -1) {
-         // Seta quantidade do item
-         currentOrder.items[index].quantity = quantity
-      }
-      console.log(currentOrder)
-      // Seta o pedido no contexto
-      setOrder(currentOrder)
-   }
-
    return (
       <OrderContext.Provider
          value={{
@@ -123,7 +131,7 @@ export function OrderWrapper({ children }) {
             setTotal,
             addItem,
             removeItem,
-            setItemQuantity
+            setItem
          }}
       >
          {children}

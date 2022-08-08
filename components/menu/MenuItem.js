@@ -21,7 +21,8 @@ export default function MenuItem({
    description,
    image,
    onAdd,
-   onRemove
+   onRemove,
+   onSet
 }) {
    const [quantity, setQuantity] = useState(0)
 
@@ -57,17 +58,17 @@ export default function MenuItem({
       }
    }
 
-   // const add = () => {
-   //    if (quantity < 20) {
-   //       handleChange(quantity + 1)
-   //    }
-   // }
-
-   // const sub = () => {
-   //    if (quantity > 0) {
-   //       handleChange(quantity - 1)
-   //    }
-   // }
+   const set = value => {
+      handleChange(value)
+      onSet({
+         id: id,
+         name: name,
+         price: price,
+         description: description,
+         image: image,
+         quantity: value
+      })
+   }
 
    return (
       <Box p={5}>
@@ -88,7 +89,7 @@ export default function MenuItem({
                focusThumbOnChange={false}
                value={quantity}
                ml="1rem"
-               onChange={handleChange}
+               onChange={set}
                max={20}
                mr={5}
             >

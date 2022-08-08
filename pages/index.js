@@ -34,11 +34,11 @@ export default function Home() {
       console.log('------------------')
    }
 
-   // const setItemQuantity = (item, quantity) => {
-   //    console.log('-----------------------------')
-   //    orderContext.setItemQuantity(item, quantity)
-   //    console.log('-----------------------------')
-   // }
+   const setItem = item => {
+      console.log('-----------')
+      orderContext.setItem(item)
+      console.log('-----------')
+   }
 
    return (
       <Box>
@@ -70,6 +70,7 @@ export default function Home() {
                            description={item.description}
                            onAdd={addItem}
                            onRemove={removeItem}
+                           onSet={setItem}
                         />
                      )
                   })}
