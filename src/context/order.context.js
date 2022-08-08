@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { useState } from 'react'
 const OrderContext = createContext()
 
@@ -10,6 +10,13 @@ const OrderContext = createContext()
 export function OrderWrapper({ children }) {
    const [order, setOrder] = useState({})
    const [total, setTotal] = useState(0)
+
+   useEffect(() => {
+      const currentOrder = JSON.parse(localStorage.getItem('order'))
+      if (currentOrder) {
+         computeTotal(currentOrder)
+      }
+   }, [])
 
    /**
     *
@@ -110,6 +117,9 @@ export function OrderWrapper({ children }) {
       // Seta o pedido no contexto
       setOrder(currentOrder)
 
+      // Altera o total do pedido
+      computeTotal(currentOrder)
+
       // Adiciona pedido atual ao localStorage
       localStorage.setItem('order', JSON.stringify(currentOrder))
    }
@@ -136,7 +146,8 @@ export function OrderWrapper({ children }) {
             setTotal,
             addItem,
             removeItem,
-            setItem
+            setItem,
+            computeTotal
          }}
       >
          {children}

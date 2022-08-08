@@ -25,6 +25,7 @@ export default function Home() {
    }
 
    const removeItem = item => {
+      console.log('remove', item)
       orderContext.removeItem(item)
    }
 
