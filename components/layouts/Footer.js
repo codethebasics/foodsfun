@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styles from '../../styles/layouts/Footer.module.scss'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert, AlertTitle, AlertDescription, Text } from '@chakra-ui/react'
 import { useOrderContext } from '/src/context/order.context'
 import { Box, Flex, Button } from '@chakra-ui/react'
@@ -17,6 +17,10 @@ export default function Footer() {
    const orderContext = useOrderContext()
 
    const [confirmDialog, setConfirmDialog] = useState(false)
+
+   useEffect(() => {
+      console.log(orderContext.total)
+   }, [])
 
    const toggleConfirmDialog = () => {
       setConfirmDialog(!confirmDialog)

@@ -38,7 +38,7 @@ export default function MenuItem({
             orderContext.setOrder(currentOrder)
          }
       }
-   }, [id, name, orderContext])
+   }, [])
 
    const handleChange = value => {
       setQuantity(value)
