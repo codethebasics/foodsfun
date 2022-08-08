@@ -3,10 +3,6 @@ import { Box, Image } from '@chakra-ui/react'
 import { SettingsIcon } from '@chakra-ui/icons'
 
 export default function Header() {
-   const openOverlayMenu = () => {
-      console.log('open overlay menu')
-   }
-
    return (
       <Box
          p={5}
@@ -23,11 +19,7 @@ export default function Header() {
             />
          </Box>
          <Box>
-            <SettingsIcon
-               color="#fff"
-               fontSize="1.3rem"
-               onClick={openOverlayMenu}
-            />
+            <SettingsIcon color="#fff" fontSize="1.3rem" display="none" />
          </Box>
       </Box>
    )

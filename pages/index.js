@@ -1,20 +1,18 @@
 import { Box, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { listItems } from '../services/items/items.service'
-import { useAppContext } from '../src/context/state'
+import { useOrderContext } from '../src/context/order.context'
 
 import MenuItem from '../components/menu/MenuItem'
 import Search from '../components/util/Search'
 
 export default function Home() {
-   const appContext = useAppContext()
+   const orderContext = useOrderContext()
 
    const [searchQuery, setSearchQuery] = useState('')
    const [menuItems, setMenuItems] = useState([])
-   const [menuItemsAdded, setMenuItemsAdded] = useState([])
-   const [orderTotal, setOrderTotal] = useState(0)
-
-   console.log(orderTotal)
+   // const [menuItemsAdded, setMenuItemsAdded] = useState([])
+   // const [, setOrderTotal] = useState(0)
 
    useEffect(() => {
       const fetchItems = async () => {
@@ -24,30 +22,23 @@ export default function Home() {
       fetchItems()
    }, [])
 
-   const addItemToOrder = item => {
-      // TODO: consertar cálculo de total
-      const currentOrder = [...menuItemsAdded]
-      const itemIndex = currentOrder.findIndex(i => i.id === item.id)
-      if (itemIndex == -1) {
-         setMenuItemsAdded(oldArray => [...oldArray, item])
-         console.log('total primeiro')
-         const total = item.price * item.quantity
-         setOrderTotal(total)
-         appContext.setTotal(total)
-      } else {
-         if (item.quantity > 0) {
-            currentOrder[itemIndex].quantity = item.quantity
-            setMenuItemsAdded(currentOrder)
-            console.log('total restante')
-            console.log(menuItemsAdded)
-            const total = currentOrder
-               .map(item => item.price * item.quantity)
-               .reduce((total, current) => total + current)
-            setOrderTotal(total)
-            appContext.setTotal(total)
-         }
-      }
+   const addItem = item => {
+      console.log('------------------')
+      orderContext.addItem(item)
+      console.log('------------------')
    }
+
+   const removeItem = item => {
+      console.log('------------------')
+      orderContext.removeItem(item)
+      console.log('------------------')
+   }
+
+   // const setItemQuantity = (item, quantity) => {
+   //    console.log('-----------------------------')
+   //    orderContext.setItemQuantity(item, quantity)
+   //    console.log('-----------------------------')
+   // }
 
    return (
       <Box>
@@ -77,7 +68,8 @@ export default function Home() {
                            image={item.image}
                            price={item.price}
                            description={item.description}
-                           onAdd={addItemToOrder}
+                           onAdd={addItem}
+                           onRemove={removeItem}
                         />
                      )
                   })}

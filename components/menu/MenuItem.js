@@ -20,33 +20,54 @@ export default function MenuItem({
    price,
    description,
    image,
-   onAdd
+   onAdd,
+   onRemove
 }) {
    const [quantity, setQuantity] = useState(0)
 
    const handleChange = value => {
       setQuantity(value)
-      onAdd({
-         id: id,
-         name: name,
-         price: price,
-         description: description,
-         image: image,
-         quantity: value
-      })
    }
 
    const add = () => {
       if (quantity < 20) {
          handleChange(quantity + 1)
+         onAdd({
+            id: id,
+            name: name,
+            price: price,
+            description: description,
+            image: image,
+            quantity: quantity + 1
+         })
       }
    }
 
    const sub = () => {
       if (quantity > 0) {
          handleChange(quantity - 1)
+         onRemove({
+            id: id,
+            name: name,
+            price: price,
+            description: description,
+            image: image,
+            quantity: quantity - 1
+         })
       }
    }
+
+   // const add = () => {
+   //    if (quantity < 20) {
+   //       handleChange(quantity + 1)
+   //    }
+   // }
+
+   // const sub = () => {
+   //    if (quantity > 0) {
+   //       handleChange(quantity - 1)
+   //    }
+   // }
 
    return (
       <Box p={5}>
