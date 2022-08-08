@@ -37,12 +37,14 @@ export function OrderWrapper({ children }) {
          currentOrder.items.push(item)
       }
 
-      console.log(currentOrder)
       // Seta o pedido no contexto
       setOrder(currentOrder)
 
       // Altera o total do pedido
       computeTotal(currentOrder)
+
+      // Adiciona pedido atual ao localStorage
+      localStorage.setItem('order', JSON.stringify(currentOrder))
    }
 
    /**
@@ -70,12 +72,15 @@ export function OrderWrapper({ children }) {
          item.quantity = 1
          currentOrder.items.push(item)
       }
-      console.log(currentOrder)
+
       // Seta o pedido no contexto
       setOrder(currentOrder)
 
       // Altera o total do pedido
       computeTotal(currentOrder)
+
+      // Adiciona pedido atual ao localStorage
+      localStorage.setItem('order', JSON.stringify(currentOrder))
    }
 
    /**
@@ -101,12 +106,12 @@ export function OrderWrapper({ children }) {
             ? (currentOrder.items[index].quantity -= 1)
             : (currentOrder.items[index].quantity = 0)
       }
-      console.log(currentOrder)
+
       // Seta o pedido no contexto
       setOrder(currentOrder)
 
-      // Altera o total do pedido
-      computeTotal(currentOrder)
+      // Adiciona pedido atual ao localStorage
+      localStorage.setItem('order', JSON.stringify(currentOrder))
    }
 
    /**

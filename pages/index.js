@@ -23,21 +23,15 @@ export default function Home() {
    }, [])
 
    const addItem = item => {
-      console.log('------------------')
       orderContext.addItem(item)
-      console.log('------------------')
    }
 
    const removeItem = item => {
-      console.log('------------------')
       orderContext.removeItem(item)
-      console.log('------------------')
    }
 
    const setItem = item => {
-      console.log('-----------')
       orderContext.setItem(item)
-      console.log('-----------')
    }
 
    return (
