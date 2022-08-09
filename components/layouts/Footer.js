@@ -19,7 +19,10 @@ export default function Footer() {
    const [confirmDialog, setConfirmDialog] = useState(false)
 
    useEffect(() => {
-      console.log(orderContext.total)
+      const currentOrder = JSON.parse(localStorage.getItem('order'))
+      if (currentOrder) {
+         orderContext.computeTotal(currentOrder)
+      }
    }, [])
 
    const toggleConfirmDialog = () => {

@@ -117,6 +117,9 @@ export function OrderWrapper({ children }) {
       // Seta o pedido no contexto
       setOrder(currentOrder)
 
+      // Altera o total do pedido
+      computeTotal(currentOrder)
+
       // Adiciona pedido atual ao localStorage
       localStorage.setItem('order', JSON.stringify(currentOrder))
    }
@@ -143,7 +146,8 @@ export function OrderWrapper({ children }) {
             setTotal,
             addItem,
             removeItem,
-            setItem
+            setItem,
+            computeTotal
          }}
       >
          {children}
