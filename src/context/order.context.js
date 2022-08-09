@@ -127,7 +127,7 @@ export function OrderWrapper({ children }) {
    const clearOrder = () => {
       localStorage.removeItem('order')
       setOrder(null)
-      location.reload()
+      // location.reload()
    }
 
    /**
