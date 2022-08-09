@@ -124,6 +124,12 @@ export function OrderWrapper({ children }) {
       localStorage.setItem('order', JSON.stringify(currentOrder))
    }
 
+   const clearOrder = () => {
+      localStorage.removeItem('order')
+      setOrder(null)
+      // location.reload()
+   }
+
    /**
     *
     * Recebe uma ordem e calcula o seu total
@@ -147,7 +153,8 @@ export function OrderWrapper({ children }) {
             addItem,
             removeItem,
             setItem,
-            computeTotal
+            computeTotal,
+            clearOrder
          }}
       >
          {children}

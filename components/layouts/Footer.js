@@ -12,6 +12,7 @@ import { RiFilePaperLine } from 'react-icons/ri'
 import { AiOutlineUser } from 'react-icons/ai'
 import { ImCheckmark } from 'react-icons/im'
 import { CgPlayListCheck } from 'react-icons/cg'
+import * as OrderService from '../../services/orders/orders.service'
 
 export default function Footer() {
    const orderContext = useOrderContext()
@@ -27,6 +28,18 @@ export default function Footer() {
 
    const toggleConfirmDialog = () => {
       setConfirmDialog(!confirmDialog)
+   }
+
+   const confirmOrder = () => {
+      console.log('confirm order')
+      console.log(orderContext.order)
+      OrderService.save(orderContext.order)
+         .then(response => {
+            console.log(response)
+            toggleConfirmDialog()
+            orderContext.clearOrder()
+         })
+         .catch(error => console.log(error))
    }
 
    return (
@@ -146,6 +159,7 @@ export default function Footer() {
                      colorScheme="green"
                      variant="outline"
                      margin="25px 15px"
+                     onClick={confirmOrder}
                   >
                      Confirmar
                   </Button>
