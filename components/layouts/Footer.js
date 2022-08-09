@@ -32,7 +32,7 @@ export default function Footer() {
 
    const confirmOrder = () => {
       OrderService.save(orderContext.order)
-         .then(response => {
+         .then(() => {
             toggleConfirmDialog()
             orderContext.clearOrder()
          })
