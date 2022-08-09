@@ -12,17 +12,10 @@ import {
    Td
 } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import * as OrderService from '../../services/orders/orders.service'
-import { useOrderContext } from '../../src/context/order.context'
 
 export default function Pedidos() {
-   const orderContext = useOrderContext()
-
    useEffect(() => {
-      const fetchOrders = async () => {
-         const orders = await OrderService.list()
-         console.log(orders)
-      }
+      const fetchOrders = async () => {}
       fetchOrders()
    }, [])
 
@@ -64,6 +57,28 @@ export default function Pedidos() {
       status: 0
    }
 
+   const renderOrderStatus = () => {
+      switch (orderSubmitted.status) {
+         case 0:
+            return 'Em análise'
+         case 1:
+            return 'Confirmado'
+         case 2:
+            return 'Cancelado'
+      }
+   }
+
+   const getOrderStatusColor = () => {
+      switch (orderSubmitted.status) {
+         case 0:
+            return '#cac032'
+         case 1:
+            return '#64aa64'
+         case 2:
+            return '#f8564a'
+      }
+   }
+
    return (
       <Box display="flex" justifyContent="center" flexDirection="column">
          <Flex
@@ -99,13 +114,9 @@ export default function Pedidos() {
                borderRadius="4px"
                color="#000"
                fontWeight="bold"
-               backgroundColor={
-                  orderSubmitted.status === 0 ? '#cac032' : '#64aa64'
-               }
+               backgroundColor={getOrderStatusColor()}
             >
-               {orderSubmitted.status === 0
-                  ? 'Aguardando confirmação'
-                  : 'Confirmado'}
+               {renderOrderStatus()}
             </Text>
          </Flex>
          <TableContainer py={5}>
@@ -118,11 +129,28 @@ export default function Pedidos() {
                   </Tr>
                </Thead>
                <Tbody>
-                  {orderSubmitted.items.map(item => (
-                     <Tr>
-                        <Td>{item.name}</Td>
+                  {orderSubmitted.items.map((item, key) => (
+                     <Tr key={key}>
+                        <Td
+                           textDecoration={
+                              orderSubmitted.status === 2
+                                 ? 'line-through'
+                                 : 'none'
+                           }
+                        >
+                           {item.name}
+                        </Td>
                         <Td isNumeric>{item.quantity}</Td>
-                        <Td isNumeric>{item.price.toFixed(2)}</Td>
+                        <Td
+                           textDecoration={
+                              orderSubmitted.status === 2
+                                 ? 'line-through'
+                                 : 'none'
+                           }
+                           isNumeric
+                        >
+                           {item.price.toFixed(2)}
+                        </Td>
                      </Tr>
                   ))}
                </Tbody>
@@ -134,10 +162,14 @@ export default function Pedidos() {
                      <Th colSpan={2} isNumeric>
                         <Text>
                            R${' '}
-                           {orderSubmitted.items
-                              .map(item => item.price * item.quantity)
-                              .reduce((total, subtotal) => total + subtotal)
-                              .toFixed(2)}
+                           {orderSubmitted.status !== 2
+                              ? orderSubmitted.items
+                                   .map(item => item.price * item.quantity)
+                                   .reduce(
+                                      (total, subtotal) => total + subtotal
+                                   )
+                                   .toFixed(2)
+                              : 0}
                         </Text>
                      </Th>
                   </Tr>
