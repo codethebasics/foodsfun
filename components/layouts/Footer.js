@@ -29,6 +29,13 @@ export default function Footer() {
       setConfirmDialog(!confirmDialog)
    }
 
+   const confirmOrder = () => {
+      console.log('confirm order')
+      console.log(orderContext.order)
+      toggleConfirmDialog()
+      orderContext.clearOrder()
+   }
+
    return (
       <Box className={styles.footer} display="flex" flexDirection="column">
          {orderContext.total > 0 && (
@@ -146,6 +153,7 @@ export default function Footer() {
                      colorScheme="green"
                      variant="outline"
                      margin="25px 15px"
+                     onClick={confirmOrder}
                   >
                      Confirmar
                   </Button>
